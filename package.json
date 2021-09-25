@@ -1,11 +1,12 @@
 {
   "name": "cse341-bookshop",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend Web Dev II - E-Commerce App",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
-    "start": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/sth2468/cse341-bookshop#readme",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
