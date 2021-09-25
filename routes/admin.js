@@ -25,5 +25,12 @@ router.post('/add-product', (req, res, next) => {
   res.redirect('/');
 });
 
+// /admin/delete-product => POST
+router.post('/delete-product', (req, res, next) => {
+  const index = products.findIndex(book => book.title === req.body.title);
+  products.splice(index, 1);
+  res.redirect('/');
+});
+
 exports.routes = router;
 exports.products = products;
