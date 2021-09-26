@@ -21,14 +21,20 @@ main {
   padding: 0.2rem 1.5rem;
 }
 
+.main-header__page-title {
+  line-height: .2rem;
+  text-align: center;
+}
+
 .main-header__page-title h1 {
   font-family: "Blackadder ITC", "Curlz MT", "Felix Titling", sans-serif;
   font-size: 30pt;
+  
 }
 
 .main-header__page-title p {
   font-family: "Edwardian Script ITC", "Curlz MT", "Felix Titling", sans-serif;
-  font-size: 20pt;
+  font-size: 22pt;
 }
 
 .main-header__nav {
@@ -52,7 +58,7 @@ main {
 
 .main-header__item a {
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 .main-header__item a:hover,
