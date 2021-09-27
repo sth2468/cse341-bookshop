@@ -1,8 +1,6 @@
-const path = require('path');
-
 const express = require('express');
 
-const productsController = require('../controllers/w03/products');
+const productsController = require('../../controllers/w03/products');
 
 const router = express.Router();
 
