@@ -1,4 +1,4 @@
-const products = [];
+const Product = require('../../models/product');
 
 exports.getAddProductPg = (req, res, next) => {
   res.render('add-product', {
@@ -10,18 +10,23 @@ exports.getAddProductPg = (req, res, next) => {
   });
 };
 
+// make sure book title is unique? So delete works correctly?
 exports.postAddProductPg = (req, res, next) => {
-  products.push({ title: req.body.title, price: req.body.price, description: req.body.description });
+  const product = new Product(req.body.title, 
+    req.body.price, req.body.description);
+  product.save();
   res.redirect('/');
 };
 
 exports.deleteProduct = (req, res, next) => {
-  const index = products.findIndex(book => book.title === req.body.title);
-  products.splice(index, 1);
+  const products = Product.fetchAll();
+  const i = products.findIndex(book => book.title === req.body.title);
+  Product.delete(i);
   res.redirect('/');
 }
 
 exports.getProducts = (req, res, next) => {
+  const products = Product.fetchAll();
   res.render('shop', {
     prods: products,
     pageTitle: 'Shop',
