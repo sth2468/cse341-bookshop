@@ -1,7 +1,17 @@
 const Product = require('../../models/product');
 
+exports.getProducts = (req, res, next) => {
+  Product.fetchAll(products => {
+    res.render('pages/admin/products', {
+      prods: products,
+      pageTitle: 'Admin Products',
+      path: '/admin/products'
+    });
+  });
+};
+
 exports.getAddProductPg = (req, res, next) => {
-  res.render('add-product', {
+  res.render('pages/admin/add-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     formsCSS: true,
@@ -12,8 +22,11 @@ exports.getAddProductPg = (req, res, next) => {
 
 // make sure book title is unique? So delete works correctly?
 exports.postAddProductPg = (req, res, next) => {
-  const product = new Product(req.body.title, 
-    req.body.price, req.body.description);
+  const t = req.body.title;
+  const img = req.body.imageUrl;
+  const p = req.body.price;
+  const desc = req.body.description;
+  const product = new Product(t, img, p, desc);
   product.save();
   res.redirect('/');
 };
@@ -21,18 +34,6 @@ exports.postAddProductPg = (req, res, next) => {
 exports.deleteProduct = (req, res, next) => {
   const products = Product.fetchAll();
   const i = products.findIndex(book => book.title === req.body.title);
-  Product.delete(i);
+  Product.delete(i-1);
   res.redirect('/');
 }
-
-exports.getProducts = (req, res, next) => {
-  const products = Product.fetchAll();
-  res.render('shop', {
-    prods: products,
-    pageTitle: 'Shop',
-    path: '/',
-    hasProducts: products.length > 0,
-    activeShop: true,
-    productCSS: true
-  });
-};
