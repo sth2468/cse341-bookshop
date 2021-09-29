@@ -4,23 +4,20 @@ exports.getProducts = (req, res, next) => {
   Product.fetchAll(products => {
     res.render('pages/admin/products', {
       prods: products,
-      pageTitle: 'Admin Products',
+      pageTitle: 'Admin',
       path: '/admin/products'
     });
   });
 };
 
 exports.getAddProductPg = (req, res, next) => {
-  res.render('pages/admin/add-product', {
+  res.render('pages/admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
-    formsCSS: true,
-    productCSS: true,
-    activeAddProduct: true
+    editing: false
   });
 };
 
-// make sure book title is unique? So delete works correctly?
 exports.postAddProductPg = (req, res, next) => {
   const t = req.body.title;
   const img = req.body.imageUrl;
@@ -31,9 +28,44 @@ exports.postAddProductPg = (req, res, next) => {
   res.redirect('/');
 };
 
-exports.deleteProduct = (req, res, next) => {
-  const products = Product.fetchAll();
-  const i = products.findIndex(book => book.title === req.body.title);
-  Product.delete(i-1);
-  res.redirect('/');
+exports.getEditProduct = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/');
+  }
+  const prodId = req.params.productId;
+  Product.findById(prodId, product => {
+    if (!product) {
+      return res.redirect('/');
+    }
+    res.render('pages/admin/edit-product', {
+      pageTitle: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: editMode,
+      product: product
+    });
+  });
+};
+
+exports.postEditProduct = (req, res, next) => {
+  const id = req.body.productId;
+  const newTitle = req.body.title;
+  const newPrice = req.body.price;
+  const newImageUrl = req.body.imageUrl;
+  const newDesc = req.body.description;
+  const newProd = new Product(
+    id,
+    newTitle,
+    newImageUrl,
+    newDesc,
+    newPrice
+  );
+  newProd.save();
+  res.redirect('/admin/products');
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const id = req.body.productId;
+  Product.deleteById(id);
+  res.redirect('/admin/products');
 }

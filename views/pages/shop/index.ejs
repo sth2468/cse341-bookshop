@@ -1,5 +1,5 @@
 <%- include('../../includes/head.ejs') %>
-    <link rel="stylesheet" href="../../../public/css/product.css">
+    <link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
@@ -23,16 +23,13 @@
                                 <%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                            <button class="btn">Add to Cart</button>
-                            <form action="/admin/delete-product" method="POST">
-                                <button class="btn" type="submit">Delete Product</button>
-                            </form>
+                            <%- include('../includes/add-to-cart.ejs', {product: product}) %>
                         </div>
                     </article>
                 <% } %>
             </div>
         <% } else { %>
-            <h1>No Products Found!</h1>
+            <h1>No Products Found</h1>
         <% } %>
     </main>
 <%- include('../../includes/end.ejs') %>
