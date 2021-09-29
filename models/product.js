@@ -19,16 +19,6 @@ const getProductsFromFile = callback => {
   });
 };
 
-const getProductsFromFile = callback => {
-  fs.readFile(p, (err, fileContent) => {
-    if (err) {
-      callback([]);
-    } else {
-      callback(JSON.parse(fileContent));
-    }
-  });
-};
-
 module.exports = class Product {
   constructor(id, t, img, p, desc) {
     this.id = id;
