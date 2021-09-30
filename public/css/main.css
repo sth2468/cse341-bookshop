@@ -129,6 +129,10 @@ h1 {
   color: white;
 }
 
+.editBtn {
+  padding: 0 0.25rem;
+}
+
 .error-pg {
   margin: auto;
   width: 50%;
