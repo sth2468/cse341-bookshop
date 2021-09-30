@@ -1,5 +1,5 @@
 {
-  "name": "cse341-bookshop",
+  "name": "cse341-e-commerce",
   "version": "1.0.0",
   "description": "Backend Web Dev II - E-Commerce App",
   "main": "app.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sth2468/cse341-bookshop.git"
+    "url": "git+https://github.com/sth2468/cse341-e-commerce.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sth2468/cse341-bookshop/issues"
+    "url": "https://github.com/sth2468/cse341-e-commerce/issues"
   },
-  "homepage": "https://github.com/sth2468/cse341-bookshop#readme",
+  "homepage": "https://github.com/sth2468/cse341-e-commerce#readme",
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
