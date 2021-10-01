@@ -1,0 +1,15 @@
+.error {
+  color: red;
+}
+
+.users-manage {
+  width: 640px;
+}
+
+.users-manage input, .users-manage select {
+  width: 100%;
+  height: 3rem;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 0;
+  box-shadow: border-box;
+}

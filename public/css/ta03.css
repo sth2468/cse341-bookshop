@@ -1,0 +1,45 @@
+.container div {
+  display: flex;
+}
+
+.items {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style: none;
+  width: 100%;
+  grid-gap: 48px;
+}
+
+.items li {
+  max-width: 480px;
+}
+
+.item_image_thing {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  height: 320px;
+}
+
+.item_image {
+  max-width: 320px;
+  max-height: 320px;
+}
+
+.item_tags {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item_tags li {
+  color: #0065bd;
+  margin-right: 5px;
+}
+
+.item_search {
+  float: right;
+}
