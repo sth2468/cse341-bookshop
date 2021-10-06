@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/sth2468/cse341-e-commerce#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongodb": "^4.1.2",
