@@ -6,7 +6,7 @@ exports.getProducts = (req, res, next) => {
     .then(products => {
       res.render('pages/shop/product-list', {
         prods: products,
-        pageTitle: 'All Products',
+        pageTitle: 'JP Ceramics - All Products',
         path: '/products'
       });
     })
@@ -31,7 +31,7 @@ exports.getIndex = (req, res, next) => {
     .then(products => {
       res.render('pages/shop/index', {
         prods: products,
-        pageTitle: 'Shop',
+        pageTitle: 'JP Ceramics - Shop',
         path: '/'
       });
     })
@@ -46,7 +46,7 @@ exports.getCart = (req, res, next) => {
       const products = user.cart.items;
       res.render('pages/shop/cart', {
         path: '/cart',
-        pageTitle: 'Cart',
+        pageTitle: 'JP Ceramics - Cart',
         products: products
       });
     })
@@ -105,7 +105,7 @@ exports.getOders = (req, res, next) => {
     .then(orders => {
       res.render('pages/shop/orders', {
         path: '/orders', 
-        pageTitle: 'Orders',
+        pageTitle: 'JP Ceramics - Orders',
         orders: orders
       });
     })
@@ -114,7 +114,7 @@ exports.getOders = (req, res, next) => {
 
 // exports.getCheckout = (req, res, next) => {
 //   res.render('pages/shop/checkout', {
-//     pageTitle: 'Checkout',
+//     pageTitle: 'JP Ceramics - Checkout',
 //     path: '/checkout'
 //   });
 // };

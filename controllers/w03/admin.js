@@ -2,7 +2,7 @@ const Product = require('../../models/product');
 
 exports.getAddProductPg = (req, res, next) => {
   res.render('pages/admin/edit-product', {
-    pageTitle: 'Add Product',
+    pageTitle: 'JP Ceramics - Add Product',
     path: '/admin/add-product',
     editing: false
   });
@@ -42,7 +42,7 @@ exports.getEditProduct = (req, res, next) => {
         return res.redirect('/');
       }
       res.render('pages/admin/edit-product', {
-        pageTitle: 'Edit Product',
+        pageTitle: 'JP Ceramics - Edit Product',
         path: '/admin/edit-product',
         editing: editMode,
         product: product
@@ -78,7 +78,7 @@ exports.getProducts = (req, res, next) => {
     .then(products => {
       res.render('pages/admin/products', {
         prods: products,
-        pageTitle: 'Admin',
+        pageTitle: 'JP Ceramics - Admin',
         path: '/admin/products'
       });
     })

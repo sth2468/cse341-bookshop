@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   class="ionicon"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="cart-sharp-wht.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.421875"
+     inkscape:cx="284.13187"
+     inkscape:cy="296.79121"
+     inkscape:window-width="1465"
+     inkscape:window-height="1030"
+     inkscape:window-x="437"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg10" />
+  <title
+     id="title2">Cart</title>
+  <circle
+     cx="176"
+     cy="416"
+     r="32"
+     id="circle4"
+     style="fill:#ffffff;fill-opacity:1" />
+  <circle
+     cx="400"
+     cy="416"
+     r="32"
+     id="circle6"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="M167.78 304h261.34l38.4-192H133.89l-8.47-48H32v32h66.58l48 272H432v-32H173.42l-5.64-32z"
+     id="path8"
+     style="fill:#ffffff;fill-opacity:1" />
+  <metadata
+     id="metadata824">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Cart</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
