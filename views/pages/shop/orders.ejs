@@ -6,7 +6,7 @@
     <%- include('../../includes/nav.ejs') %>
     <main>
       <% if (orders.length <= 0) { %>
-        <h1>You have no order history</h1>
+        <h1 class="centered">You have no order history</h1>
       <% } else { %>
           <ul class="orders">
               <% orders.forEach(order => { %>

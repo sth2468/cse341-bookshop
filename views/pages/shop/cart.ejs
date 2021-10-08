@@ -7,13 +7,18 @@
         <main>
             <% if (products.length > 0) { %>
                 <ul class="cart__item-list">
+                    <h1>Your Shopping Cart</h1>
                     <% products.forEach(p => { %>
                         <li class="cart__item">
-                            <h1><%= p.productId.title %></h1>
-                            <h2>Quantity: <%= p.quantity %></h2>
+                            <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
+                            <div>
+                              <h2 style="display:inline;">Quantity: <%= p.quantity %></h2>
+                              <button class="btn">+</button>
+                              <button class="btn" style="min-width:1.1rem;">-</button>
+                            </div>
                             <form action="/cart-delete-item" method="POST">
                                 <input type="hidden" value="<%= p.productId._id %>" name="productId">
-                                <button class="btn danger" type="submit">Delete</button>
+                                <button class="btn" type="submit">Delete</button>
                             </form>
                         </li>
                     <% }) %>
@@ -21,11 +26,12 @@
                 <hr>
                 <div class="centered">
                     <form action="/create-order" method="POST">
-                        <button type="submit" class="btn">Order Now!</button>
+                        <a class="btn" href="/">Back to Shop</a>
+                        <button type="submit" class="btn">Order Now</button>
                     </form>
                 </div>
             <% } else { %>
-                <h1>Your cart is empty</h1>
+                <h1 class="centered">Your cart is empty</h1>
             <% } %>
         </main>
         <%- include('../../includes/end.ejs') %>

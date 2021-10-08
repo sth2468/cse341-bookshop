@@ -3,14 +3,14 @@
 
     <body>
         <%- include('../../includes/nav.ejs') %>
-        <main class="centered">
+        <main class="prod-detail">
             <h1><%= product.title %></h1>
             <hr>
+            <img class="inline" src="<%= product.imageUrl %>" alt="<%= product.title %>">
             <div>
-                <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
+              <h2>$ <%= product.price %></h2>
+              <p><%= product.description %></p>
+              <%- include('../../includes/add-to-cart.ejs') %>
             </div>
-            <h2><%= product.price %></h2>
-            <p><%= product.description %></p>
-            <%- include('../../includes/add-to-cart.ejs') %>
         </main>
         <%- include('../../includes/end.ejs') %>

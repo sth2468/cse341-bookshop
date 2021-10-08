@@ -13,17 +13,18 @@
           <li class="main-header__item">
             <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
           </li>
-          <li class="main-header__item">
-            <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
-          </li>
-          <li class="main-header__item">
-            <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin</a>
+          <li class="main-header__item dropdown">
+            <a class="<%= path === '/admin/products' ? 'active' : '' %> <%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/products">Admin</a>
+            <div class="dropdown-content">
+              <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+              <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Update Products</a>
+            </div>
           </li>
           <li class="main-header__item">
             <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
           </li>
           <li class="main-header__item">
-            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart<img class="cart-icon" src="/images/cart-sharp.svg" alt="cart"></a>
+            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart <i style="font-size:15px;color:white;" class="fa">&#xf07a;</i></a>
           </li>
       </ul>
   </nav>
