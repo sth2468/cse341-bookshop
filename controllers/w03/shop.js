@@ -47,7 +47,7 @@ exports.getCart = (req, res, next) => {
       res.render('pages/shop/cart', {
         path: '/cart',
         pageTitle: 'Cart',
-        products: cartProducts
+        products: products
       });
     })
     .catch(err => console.log(err));
