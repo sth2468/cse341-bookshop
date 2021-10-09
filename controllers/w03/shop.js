@@ -41,13 +41,20 @@ exports.getIndex = (req, res, next) => {
 exports.getCart = (req, res, next) => {
   req.user
     .populate('cart.items.productId')
-    //.execPopulate()
     .then(user => {
       const products = user.cart.items;
+      let subtotal = 0;
+      user.cart.items.map(cartEntry => {
+        for (i = 0; i < cartEntry.quantity; i++) {
+          subtotal += cartEntry.productId.price * 100;
+        }
+      });
+      subtotal = parseInt(subtotal) / 100;
       res.render('pages/shop/cart', {
         path: '/cart',
         pageTitle: 'JP Ceramics - Cart',
-        products: products
+        products: products, 
+        subtotal: subtotal.toFixed(2)
       });
     })
     .catch(err => console.log(err));
@@ -75,9 +82,9 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
+  const subtotal = req.body.subtotal;
   req.user
     .populate('cart.items.productId')
-    //.execPopulate()
     .then(user => {
       const products = user.cart.items.map(i => {
         return { quantity: i.quantity, product: { ...i.productId._doc } };
@@ -87,7 +94,8 @@ exports.postOrder = (req, res, next) => {
           name: req.user.name,
           userId: req.user
         },
-        products: products
+        products: products,
+        purchaseTotal: subtotal
       });
       return order.save();
     })

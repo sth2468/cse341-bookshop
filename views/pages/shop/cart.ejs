@@ -7,12 +7,18 @@
         <main>
             <% if (products.length > 0) { %>
                 <ul class="cart__item-list">
-                    <h1>Your Shopping Cart</h1>
+                    <div class="cart__title">
+                      <h1 style="display: inline;">Your Shopping Cart</h1>
+                      <h2 style="display: inline;">Subtotal: $ <%= subtotal %></h2>
+                    </div>
                     <% products.forEach(p => { %>
                         <li class="cart__item">
-                            <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
                             <div>
-                              <h2 style="display:inline;">Quantity: <%= p.quantity %></h2>
+                              <img class="float" src="<%= p.productId.imageUrl %>" alt="product img">
+                              <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
+                            </div>
+                            <div>
+                              <h2>Quantity: <%= p.quantity %></h2>
                               <button class="btn">+</button>
                               <button class="btn" style="min-width:1.1rem;">-</button>
                             </div>
@@ -27,6 +33,7 @@
                 <div class="centered">
                     <form action="/create-order" method="POST">
                         <a class="btn" href="/">Back to Shop</a>
+                        <input type="hidden" value="<%= subtotal %>" name="subtotal">
                         <button type="submit" class="btn">Order Now</button>
                     </form>
                 </div>

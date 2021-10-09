@@ -4,9 +4,12 @@
   margin: 0;
 }
 
-.orders__item h1 {
-    margin: 0;
-    font-size: 1rem;
+.orders__item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 900;
+  font-family: "Candara Light", monospace;
 }
 
 .orders__item {
