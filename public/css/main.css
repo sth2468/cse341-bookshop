@@ -16,7 +16,7 @@ main {
 }
 
 h1 {
-  color: teal;
+  color: #008080;
   font-family: "Candara Light", monospace;
 }
 
@@ -42,7 +42,7 @@ h1 {
 .main-header__page-title h1 {
   font-family: "Candara Light", monospace;
   font-size: 30pt;
-  color: turquoise;
+  color: #40e0d0;
 }
 
 .main-header__page-title p {
