@@ -23,13 +23,15 @@
                                 <%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                            <%- include('../../includes/add-to-cart.ejs', {product: product}) %>
+                            <% if (isAuthenticated) { %>
+                                <%- include('../../includes/add-to-cart.ejs', {product: product}) %>
+                            <% } %>
                         </div>
                     </article>
                 <% } %>
             </div>
         <% } else { %>
-            <h1 class="centered">No Products Found</h1>
+            <h1 class="centered">The shelves are empty, but the potter is working on it. We'll restock soon.</h1>
         <% } %>
     </main>
 <%- include('../../includes/end.ejs') %>
