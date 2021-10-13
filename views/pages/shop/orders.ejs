@@ -12,7 +12,7 @@
               <% orders.forEach(order => { %>
                   <li class="orders__item">
                       <p>Order - # <%= order._id %></p>
-                      <p>Purchase Total - $ <%= order.purchaseTotal %></p>
+                      <p>Purchase Total - $ <%= order.purchaseTotal.toFixed(2) %></p>
                       <ul class="orders__products">
                           <% order.products.forEach(p => { %>
                               <li class="orders__products-item"><%= p.product.title %> (<%= p.quantity %>)</li>

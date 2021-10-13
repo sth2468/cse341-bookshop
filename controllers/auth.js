@@ -7,8 +7,7 @@ const User = require('../models/user');
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        '' // get from sendGrid
+      api_key: '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'
     }
   })
 );
@@ -20,7 +19,7 @@ exports.getLogin = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render('auth/login', {
+  res.render('pages/auth/login', {
     path: '/login',
     pageTitle: 'JP Ceramics - Login',
     errorMessage: message
@@ -34,7 +33,7 @@ exports.getSignup = (req, res, next) => {
   } else {
     message = null;
   }
-  res.render('auth/signup', {
+  res.render('pages/auth/signup', {
     path: '/signup',
     pageTitle: 'JP Ceramics - Signup',
     errorMessage: message
