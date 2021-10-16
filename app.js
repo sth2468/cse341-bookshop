@@ -12,7 +12,7 @@ const flash = require('connect-flash');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://shumann:2T25AFw6SIN8wfSj@clustercse341.vl2yx.mongodb.net/shop";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://shumann:2T25AFw6SIN8wfSj@clustercse341.vl2yx.mongodb.net/shop?retryWrites=true&w=majority";
 
 const PORT = process.env.PORT || 5000
 
