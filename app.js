@@ -12,7 +12,7 @@ const flash = require('connect-flash');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://s_humann:oBT37HEWqVLEKQ6o@clustercse341.vl2yx.mongodb.net/shop?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://shumann:2T25AFw6SIN8wfSj@clustercse341.vl2yx.mongodb.net/shop?retryWrites=true&w=majority";
 
 const PORT = process.env.PORT || 5000
 
@@ -84,18 +84,6 @@ app.use(errorController.get404pg);
 mongoose
   .connect(MONGODB_URL, options)
   .then(result => {
-    User.findOne().then(user => {
-      if (!user) {
-        const user = new User({
-          name: 's_humann',
-          email: 's@email.com',
-          cart: {
-            items: []
-          }
-        });
-        user.save();
-      }
-    });
     app.listen(PORT);
   })
   .catch(err => console.log(err)

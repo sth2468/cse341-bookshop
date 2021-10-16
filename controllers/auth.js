@@ -1,16 +1,16 @@
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+//const nodemailer = require('nodemailer');
+//const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: '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'
-    }
-  })
-);
+// const transporter = nodemailer.createTransport(
+//   sendgridTransport({
+//     auth: {
+//       api_key: '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'
+//     }
+//   })
+// );
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
@@ -51,8 +51,8 @@ exports.postLogin = (req, res, next) => {
       }
       bcrypt
         .compare(password, user.password)
-        .then(doMatch => {
-          if (doMatch) {
+        .then(matching => {
+          if (matching) {
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {
@@ -76,6 +76,14 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   // check if these match, if not send an error message
   const confirmPassword = req.body.confirmPassword;
+  if (!email || !password) {
+    req.flash('error', 'Please enter an email and password.');
+    return res.redirect('/signup');
+  }
+  if (confirmPassword !== password) {
+    req.flash('error', 'Your passwords do not match. Please try again.');
+    return res.redirect('/signup');
+  }
   User.findOne({ email: email })
     .then(userDoc => {
       if (userDoc) {
@@ -95,19 +103,19 @@ exports.postSignup = (req, res, next) => {
           });
           return user.save();
         })
-        .then(result => {
-          res.redirect('/login');
-          return transporter.sendMail({
-            to: email,
-            from: 'customerservice@jpceramics.com',
-            subject: 'Successful account creation!',
-            html: '<h1>Thank you for creating an account with Jilyn Potter Ceramics! You can start shopping by clicking HERE.</h1>' 
-            // add a link to the store login page
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        // .then(result => {
+        //   res.redirect('/login');
+        //   return transporter.sendMail({
+        //     to: email,
+        //     from: 'customerservice@jpceramics.com',
+        //     subject: 'Successful account creation!',
+        //     html: '<h1>Thank you for creating an account with Jilyn Potter Ceramics! You can start shopping by clicking HERE.</h1>' 
+        //     // add a link to the store login page
+        //   });
+        // })
+        // .catch(err => {
+        //   console.log(err);
+        // });
     })
     .catch(err => {
       console.log(err);
