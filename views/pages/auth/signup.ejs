@@ -12,8 +12,20 @@
         <% } %>
         <form class="login-form" action="/signup" method="POST">
             <div class="form-control">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" id="firstName" autofocus>
+            </div>
+            <div class="form-control">
+                <label for="lastName">Last name</label>
+                <input type="text" name="lastName" id="lastName">
+            </div>
+            <div class="form-control">
+                <label for="favFood">Favorite food</label>
+                <input type="text" name="favFood" id="favFood">
+            </div>
+            <div class="form-control">
                 <label for="email">E-Mail</label>
-                <input type="email" name="email" id="email" autocomplete= "email" autofocus>
+                <input type="email" name="email" id="email" autocomplete= "email">
             </div>
             <div class="form-control">
                 <label for="password">Password</label>

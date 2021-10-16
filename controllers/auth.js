@@ -1,16 +1,6 @@
 const bcrypt = require('bcryptjs');
-//const nodemailer = require('nodemailer');
-//const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
-
-// const transporter = nodemailer.createTransport(
-//   sendgridTransport({
-//     auth: {
-//       api_key: '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'
-//     }
-//   })
-// );
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
@@ -72,9 +62,11 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const favFood = req.body.favFood;
   const email = req.body.email;
   const password = req.body.password;
-  // check if these match, if not send an error message
   const confirmPassword = req.body.confirmPassword;
   if (!email || !password) {
     req.flash('error', 'Please enter an email and password.');
@@ -97,29 +89,19 @@ exports.postSignup = (req, res, next) => {
         .hash(password, 12)
         .then(hashedPassword => {
           const user = new User({
+            firstName: firstName,
+            lastName: lastName,
+            favFood: favFood,
             email: email,
             password: hashedPassword,
             cart: { items: [] }
           });
-          return user.save();
+          user.save();
+          res.redirect('/login');
         })
-        // .then(result => {
-        //   res.redirect('/login');
-        //   return transporter.sendMail({
-        //     to: email,
-        //     from: 'customerservice@jpceramics.com',
-        //     subject: 'Successful account creation!',
-        //     html: '<h1>Thank you for creating an account with Jilyn Potter Ceramics! You can start shopping by clicking HERE.</h1>' 
-        //     // add a link to the store login page
-        //   });
-        // })
-        // .catch(err => {
-        //   console.log(err);
-        // });
+        .catch(err => { console.log(err); });
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => { console.log(err); });
 };
 
 exports.postLogout = (req, res, next) => {
