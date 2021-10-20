@@ -11,7 +11,9 @@
                 <% for (let product of prods) { %>
                     <article class="card product-item">
                         <header class="card__header">
-                            <h1 class="product__title"><%= product.title %></h1>
+                            <h1 class="product__title">
+                                <%= product.title %>
+                            </h1>
                         </header>
                         <div class="card__image">
                             <img src="<%= product.imageUrl %>" 
@@ -35,7 +37,7 @@
                 <% } %>
             </div>
         <% } else { %>
-            <h1 class="centered">No Products Found</h1>
+            <h1 class="centered">Sorry, we're all sold out. The potter is busy creating more beautiful products for the shop. Thank you for your patience!</h1>
         <% } %>
     </main>
 <%- include('../../includes/end.ejs') %>
