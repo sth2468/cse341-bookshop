@@ -8,11 +8,12 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+require('dotenv').config();
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://shumann:2T25AFw6SIN8wfSj@clustercse341.vl2yx.mongodb.net/shop?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL;
 
 const PORT = process.env.PORT || 5000
 
