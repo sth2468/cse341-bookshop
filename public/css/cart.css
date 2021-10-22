@@ -49,3 +49,11 @@
   width:50px;
   height: auto;
 }
+
+.cart__item form {
+  display: inline;
+}
+
+.cart__item input {
+  width: 2rem;
+}

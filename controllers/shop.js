@@ -27,12 +27,19 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
+  let message = req.flash('reset'); // check to make sure this is working
+  if (message) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   Product.find()
     .then(products => {
       res.render('pages/shop/index', {
         prods: products,
         pageTitle: 'JP Ceramics - Shop',
-        path: '/'
+        path: '/', 
+        resetMessage: message
       });
     })
     .catch(err => console.log(err));
@@ -63,12 +70,25 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
   const id = req.body.productId;
   Product.findById(id)
-    .then(product => {
-      return req.user.addToCart(product);
+  .then(product => {
+    return req.user.addToCart(product);
   })
   .then(result => {
     res.redirect('/cart');
-  });
+  })
+  .catch(err => console.log(err));
+};
+
+exports.postCartDecrementQty = (req, res, next) => {
+  const id = req.body.productId;
+    Product.findById(id)
+    .then(product => {
+      return req.user.removeOneFromCart(product);
+    })
+    .then(result => {
+      res.redirect('/cart');
+    })
+    .catch(err => console.log(err));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {

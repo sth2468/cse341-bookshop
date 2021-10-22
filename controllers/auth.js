@@ -17,15 +17,22 @@ const transporter = nodemailer.createTransport(
 );
 
 exports.getLogin = (req, res, next) => {
+  let success = req.flash('success');
   let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
   } else {
     message = null;
   }
+  if (success) {
+    success = success[0];
+  } else {
+    success = null;
+  }
   res.render('pages/auth/login', {
     path: '/login',
     pageTitle: 'JP Ceramics - Login',
+    successMessage: success,
     errorMessage: message,
     oldInput: {
       email: '',
@@ -125,25 +132,19 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
-  // if (!email || !password) {
-  //   req.flash('error', 'Please enter an email and password.');
-  //   return res.redirect('/signup');
-  // }
-  // if (confirmPassword !== password) {
-  //   req.flash('error', 'Your passwords do not match. Please try again.');
-  //   return res.redirect('/signup');
-  // }
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.array());
-    return res.status(422).render('auth/signup', {
+    return res.status(422).render('pages/auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
       errorMessage: errors.array()[0].msg,
       oldInput: {
+        firstName: firstName, 
+        lastName: lastName,
+        favFood: favFood, 
         email: email,
         password: password,
-        confirmPassword: req.body.confirmPassword
+        confirmPassword: ''
       },
       validationErrors: errors.array()
     });
@@ -171,6 +172,7 @@ exports.postSignup = (req, res, next) => {
           return user.save();
         })
         .then(result => {
+          req.flash('success', 'You have successfully signed up. Thank you! Please login to start shopping.');
           res.redirect('/login');
           return transporter.sendMail({
             to: email,
@@ -223,6 +225,7 @@ exports.postReset = (req, res, next) => {
         return user.save();
       })
       .then(result => {
+        req.flash('reset', 'Please check your email for a password reset link.');
         res.redirect('/');
         transporter.sendMail({
           to: req.body.email,

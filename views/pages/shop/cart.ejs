@@ -18,9 +18,18 @@
                               <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
                             </div>
                             <div>
-                              <h2>Quantity: <%= p.quantity %></h2>
-                              <button class="btn">+</button>
-                              <button class="btn" style="min-width:1.1rem;">-</button>
+                              <form action="/cart" method="post">
+                                <h2>Quantity: </h2>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn" type="submit">+</button>
+                                <h2><%= p.quantity %></h2>
+                                <input type="hidden" name="productId" value="<%= p.productId._id %>">
+                              </form>
+                              <form action="/cart-decrement-item" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="btn" type="submit" style="min-width: 1.1rem;">-</button>
+                                <input type="hidden" name="productId" value="<%= p.productId._id %>">
+                              </form>
                             </div>
                             <form action="/cart-delete-item" method="POST">
                                 <input type="hidden" value="<%= p.productId._id %>" name="productId">
@@ -36,11 +45,12 @@
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <a class="btn" href="/">Back to Shop</a>
                         <input type="hidden" value="<%= subtotal %>" name="subtotal">
-                        <button type="submit" class="btn">Order Now</button>
+                        <button type="submit" class="btn">Purchase</button>
                     </form>
                 </div>
             <% } else { %>
                 <h1 class="centered">Your cart is empty</h1>
+                <a class="btn" href="/">Start Shopping</a>
             <% } %>
         </main>
         <%- include('../../includes/end.ejs') %>

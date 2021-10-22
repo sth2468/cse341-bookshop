@@ -6,6 +6,9 @@
     <%- include('../../includes/nav.ejs') %>
 
     <main>
+        <% if (resetMessage) { %>
+            <div class="user-message"><%= resetMessage %></div>
+        <% } %>
         <% if (prods.length > 0) { %>
             <div class="grid">
                 <% for (let product of prods) { %>

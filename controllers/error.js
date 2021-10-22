@@ -5,3 +5,11 @@ exports.get404pg = (req, res, next) => {
     isAuthenticated: req.session.isLoggedIn
   });
 };
+
+exports.get500pg = (req, res, next) => {
+  res.status(500).render('pages/500', { 
+    pageTitle: 'Server Error', 
+    path: '/500',
+    isAuthenticated: req.session.isLoggedIn
+  });
+};

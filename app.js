@@ -81,6 +81,7 @@ app.use(shopRoutes);
 app.use(authRoutes);
 
 app.use(errorController.get404pg);
+app.use(errorController.get500pg);
 
 mongoose
   .connect(MONGODB_URL, options)
