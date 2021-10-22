@@ -25,6 +25,12 @@ router.get('/orders', isAuth, shopController.getOders);
 
 router.post('/create-order', isAuth, shopController.postOrder);
 
+router.get('/wishlist', isAuth, shopController.getWishList);
+
+router.post('/wishlist', isAuth, shopController.postWishList);
+
+router.post('/wishlist-delete-item', isAuth, shopController.postWishListDeleteItem);
+
 //router.get('/checkout', shopController.getCheckout);
 
 module.exports = router;

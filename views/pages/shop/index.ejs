@@ -27,7 +27,8 @@
                         </div>
                         <div class="card__actions">
                             <% if (isAuthenticated) { %>
-                                <%- include('../../includes/add-to-cart.ejs', {product: product}) %>
+                              <%- include('../../includes/add-to-wishlist.ejs', {product: product}) %>
+                              <%- include('../../includes/add-to-cart.ejs', {product: product}) %>
                             <% } %>
                         </div>
                     </article>

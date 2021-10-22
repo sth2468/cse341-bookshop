@@ -1,0 +1,46 @@
+<%- include('../../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+<%- include('../../includes/nav.ejs') %>
+<main>
+  <% if (products.length > 0) { %>
+    <ul class="cart__item-list">
+      <div class="cart__title">
+        <h1 style="display: inline;">Your Wish List</h1>
+      </div>
+      <% products.forEach(p => { %>
+        <li class="cart__item">
+          <div>
+            <img class="float" src="<%= p.productId.imageUrl %>" alt="product img">
+            <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
+          </div>
+          <div>
+            <h2>Price: $<%= p.productId.price %></h2>
+          </div>
+          <div>
+            <% if (isAuthenticated) { %>
+              <%- include('../../includes/add-to-cart.ejs', {product: p.productId}) %>
+            <% } %>
+            <form action="/wishlist-delete-item" method="POST">
+              <input type="hidden" value="<%= p.productId._id %>" name="productId">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn" type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+    <hr>
+    <div class="centered">
+        <a class="btn" href="/">Back to Shop</a>
+    </div>
+  <% } else { %>
+    <div class="centered">
+      <h1>Your wishlist is empty</h1>
+      <a class="btn" href="/">Start Shopping</a>
+    </div>
+  <% } %>
+</main>
+<%- include('../../includes/end.ejs') %>

@@ -33,6 +33,15 @@ const userSchema = new Schema({
         quantity: { type: Number, required: true }
       }
     ]
+  }, 
+  wishlist: {
+    items: [{
+      productId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true
+      }
+    }]
   }
 });
 
@@ -92,6 +101,34 @@ userSchema.methods.removeFromCart = function(productId) {
 
 userSchema.methods.clearCart = function() {
   this.cart = { items: [] };
+  return this.save();
+};
+
+userSchema.methods.addToWishList = function(product) {
+  const wishlistProductIndex = this.wishlist.items.findIndex(item => {
+    return item.productId.toString() === product._id.toString();
+  });
+  const updatedWishListItems = [...this.wishlist.items];
+
+  if (wishlistProductIndex >= 0) {
+    return;
+  } else {
+    updatedWishListItems.push({
+      productId: product._id
+    });
+  }
+  const updatedWishList = {
+    items: updatedWishListItems
+  };
+  this.wishlist = updatedWishList;
+  return this.save();
+};
+
+userSchema.methods.removeFromWishList = function(productId) {
+  const updatedWishListItems = this.wishlist.items.filter(item => {
+    return item.productId.toString() !== productId.toString();
+  });
+  this.wishlist.items = updatedWishListItems;
   return this.save();
 };
 

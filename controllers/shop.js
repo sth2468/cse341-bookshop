@@ -101,6 +101,18 @@ exports.postCartDeleteProduct = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getOders = (req, res, next) => {
+  Order.find({ 'user.userId': req.user._id })
+    .then(orders => {
+      res.render('pages/shop/orders', {
+        path: '/orders', 
+        pageTitle: 'JP Ceramics - Orders',
+        orders: orders
+      });
+    })
+    .catch(err => console.log(err));
+};
+
 exports.postOrder = (req, res, next) => {
   let subtotal = req.body.subtotal;
   req.user
@@ -128,14 +140,38 @@ exports.postOrder = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
-exports.getOders = (req, res, next) => {
-  Order.find({ 'user.userId': req.user._id })
-    .then(orders => {
-      res.render('pages/shop/orders', {
-        path: '/orders', 
-        pageTitle: 'JP Ceramics - Orders',
-        orders: orders
+exports.getWishList = (req, res, next) => {
+  req.user
+    .populate('wishlist.items.productId')
+    .then(user => {
+      const products = user.wishlist.items;
+      res.render('pages/shop/wishlist', {
+        path: '/wishlist',
+        pageTitle: 'JP Ceramics - Wishlist',
+        products: products
       });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postWishList = (req, res, next) => {
+  const id = req.body.productId;
+  Product.findById(id)
+  .then(product => {
+    return req.user.addToWishList(product);
+  })
+  .then(result => {
+    res.redirect('/wishlist');
+  })
+  .catch(err => console.log(err));
+};
+
+exports.postWishListDeleteItem = (req, res, next) => {
+  const id = req.body.productId;
+  req.user
+    .removeFromWishList(id)
+    .then(result => {
+      res.redirect('/wishlist');
     })
     .catch(err => console.log(err));
 };
