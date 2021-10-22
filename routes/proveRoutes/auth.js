@@ -68,6 +68,24 @@ router.post('/reset', authController.postReset);
 
 router.get('/reset/:token', authController.getNewPassword);
 
-router.post('/new-password', authController.postNewPassword);
+router.post('/new-password', 
+[
+  body(
+    'password',
+    'Please enter a password that is at least 12 characters in length.'
+  )
+    .isLength({ min: 11 })
+    //.isAlphanumeric()
+    .trim(),
+  body('confirmPassword')
+    .trim()
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('New passwords need to match.');
+      }
+      return true;
+  })
+], 
+authController.postNewPassword);
 
 module.exports = router;

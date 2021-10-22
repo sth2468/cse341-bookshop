@@ -71,6 +71,7 @@ exports.postLogin = (req, res, next) => {
     return res.status(422).render('pages/auth/login', {
       path: '/login',
       pageTitle: 'JP Ceramics - Login',
+      successMessage: '',
       errorMessage: errors.array()[0].msg,
       oldInput: {
         email: email,
@@ -86,6 +87,7 @@ exports.postLogin = (req, res, next) => {
         return res.status(422).render('pages/auth/login', {
           path: '/login',
           pageTitle: 'JP Ceramics - Login',
+          successMessage: '',
           errorMessage: "We're sorry, that email or password is invalid.",
           oldInput: {
             email: email,
@@ -109,6 +111,7 @@ exports.postLogin = (req, res, next) => {
             path: '/login',
             pageTitle: 'JP Ceramics - Login',
             errorMessage: "We're sorry, that email or password is invalid.",
+            successMessage: '',
             oldInput: {
               email: email,
               password: password
@@ -130,7 +133,6 @@ exports.postSignup = (req, res, next) => {
   const favFood = req.body.favFood;
   const email = req.body.email;
   const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -181,7 +183,7 @@ exports.postSignup = (req, res, next) => {
             subject: 'Signup succeeded!',
             html: '<h1>Thank you for signing up with Jilyan Potter Ceramics!</h1>'
           });
-        }) //another catch needed??
+        })
         .catch(err => { console.log(err); });
     })
     .catch(err => { console.log(err); });
@@ -226,7 +228,7 @@ exports.postReset = (req, res, next) => {
         return user.save();
       })
       .then(result => {
-        req.flash('reset', 'Please check your email for a password reset link.');
+        req.flash('success', 'Success! Please check your email for a password reset link.');
         res.redirect('/');
         transporter.sendMail({
           to: req.body.email,
@@ -258,8 +260,9 @@ exports.getNewPassword = (req, res, next) => {
         path: '/new-password',
         pageTitle: 'JP Ceramics - New Password',
         errorMessage: message,
+        validationErrors: [], 
         userId: user._id.toString(),
-        passwordToken: token
+        passwordToken: token, 
       });
     })
     .catch(err => {
@@ -268,30 +271,60 @@ exports.getNewPassword = (req, res, next) => {
 };
 
 exports.postNewPassword = (req, res, next) => {
+  const inputOldPassword = req.body.oldPassword;
   const newPassword = req.body.password;
   const userId = req.body.userId;
   const passwordToken = req.body.passwordToken;
   let resetUser;
 
-  User.findOne({
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('pages/auth/new-password', {
+      path: '/new-password',
+      pageTitle: 'Set New Password',
+      userId: userId,
+      passwordToken: passwordToken, 
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    });
+  }
+
+  User.findOne({ 
     resetToken: passwordToken,
     resetTokenExpiration: { $gt: Date.now() },
     _id: userId
-  })
+   })
     .then(user => {
-      resetUser = user;
-      return bcrypt.hash(newPassword, 12);
+      bcrypt
+        .compare(inputOldPassword, user.password)
+        .then(matching => {
+          if (matching) {
+            resetUser = user;
+            return bcrypt.hash(newPassword, 12);
+          }
+          return res.status(422).render('pages/auth/new-password', {
+            path: '/new-password',
+            pageTitle: 'Set New Password',
+            userId: userId,
+            passwordToken: passwordToken, 
+            errorMessage: "The old password you enter must match the current one on record.",
+            validationErrors: []
+          });
+        })
+        .then(hashedPassword => {
+          resetUser.password = hashedPassword;
+          resetUser.resetToken = undefined;
+          resetUser.resetTokenExpiration = undefined;
+          return resetUser.save();
+        })
+        .then(result => {
+          req.flash('success', 'Your password has been successfully updated. Please login to start shopping.');
+          res.redirect('/login');
+        })
+        .catch(err => { 
+          console.log(err); 
+          res.redirect('/new-password');
+        });
     })
-    .then(hashedPassword => {
-      resetUser.password = hashedPassword;
-      resetUser.resetToken = undefined;
-      resetUser.resetTokenExpiration = undefined;
-      return resetUser.save();
-    })
-    .then(result => {
-      res.redirect('/login');
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 };

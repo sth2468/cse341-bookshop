@@ -2,32 +2,46 @@ const Product = require('../models/product');
 const Order = require('../models/order');
 
 exports.getProducts = (req, res, next) => {
+  let message = req.flash('success');
+  if (message) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   Product.find()
     .then(products => {
       res.render('pages/shop/product-list', {
         prods: products,
         pageTitle: 'JP Ceramics - All Products',
-        path: '/products'
+        path: '/products', 
+        successMessage: message
       });
     })
     .catch(err => console.log(err));
 };
 
 exports.getProduct = (req, res, next) => {
+  let message = req.flash('success');
+  if (message) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   const id = req.params.productId;
   Product.findById(id)
     .then(product => {
       res.render('pages/shop/product-detail', {
         product: product,
         pageTitle: product.title,
-        path: '/products'
+        path: '/products', 
+        successMessage: message
       });
     })
     .catch(err => console.log(err));
 };
 
 exports.getIndex = (req, res, next) => {
-  let message = req.flash('reset'); // check to make sure this is working
+  let message = req.flash('success');
   if (message) {
     message = message[0];
   } else {
@@ -39,7 +53,7 @@ exports.getIndex = (req, res, next) => {
         prods: products,
         pageTitle: 'JP Ceramics - Shop',
         path: '/', 
-        resetMessage: message
+        successMessage: message
       });
     })
     .catch(err => console.log(err));
@@ -69,12 +83,15 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   const id = req.body.productId;
+  let path = req.body.path;
+  path = path.toString();
   Product.findById(id)
   .then(product => {
     return req.user.addToCart(product);
   })
   .then(result => {
-    res.redirect('/cart');
+    req.flash('success', 'Item has been successfully added to your cart.');
+    return res.redirect(path);
   })
   .catch(err => console.log(err));
 };
@@ -141,6 +158,12 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getWishList = (req, res, next) => {
+  let message = req.flash('success');
+  if (message) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   req.user
     .populate('wishlist.items.productId')
     .then(user => {
@@ -148,7 +171,8 @@ exports.getWishList = (req, res, next) => {
       res.render('pages/shop/wishlist', {
         path: '/wishlist',
         pageTitle: 'JP Ceramics - Wishlist',
-        products: products
+        products: products, 
+        successMessage: message
       });
     })
     .catch(err => console.log(err));

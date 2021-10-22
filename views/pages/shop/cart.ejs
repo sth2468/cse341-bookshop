@@ -18,6 +18,9 @@
             <h1><a href="/products/<%= p.productId._id %>"><%= p.productId.title %></a></h1>
           </div>
           <div>
+            <h2>Price: $<%= p.productId.price %></h2>
+          </div>
+          <div>
             <form action="/cart" method="post">
               <h2>Quantity: </h2>
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">

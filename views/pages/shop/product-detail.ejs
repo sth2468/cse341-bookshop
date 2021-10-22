@@ -1,19 +1,28 @@
 <%- include('../../includes/head.ejs') %>
-    </head>
+</head>
 
-    <body>
-        <%- include('../../includes/nav.ejs') %>
-        <main class="prod-detail">
-            <h1><%= product.title %></h1>
-            <hr>
-            <img class="float" src="<%= product.imageUrl %>" alt="<%= product.title %>">
-            <div>
-              <h2>$ <%= product.price %></h2>
-              <p><%= product.description %></p>
-              <% if (isAuthenticated) { %>
-                <%- include('../../includes/add-to-wishlist.ejs') %>
-                <%- include('../../includes/add-to-cart.ejs') %>
-              <% } %>
-            </div>
-        </main>
-        <%- include('../../includes/end.ejs') %>
+<body>
+  <%- include('../../includes/nav.ejs') %>
+  <main class="prod-detail">
+    <% if (successMessage) { %>
+      <div class="user-message"><%= successMessage %></div>
+    <% } %>
+    <h1><%= product.title %></h1>
+    <hr>
+    <img class="float" src="<%= product.imageUrl %>" alt="<%= product.title %>">
+    <div>
+      <h2>$ <%= product.price %></h2>
+      <p><%= product.description %></p>
+      <% if (isAuthenticated) { %>
+        <%- include('../../includes/add-to-wishlist.ejs') %>
+        <form action="/cart" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="btn" type="submit">Add to Cart</button>
+          <input type="hidden" name="productId" value="<%= product._id %>">
+          <input type="hidden" name="path" value="/products/<%= product._id %>">
+        </form>
+        <!-- <%- include('../../includes/add-to-cart.ejs') %> -->
+      <% } %>
+    </div>
+  </main>
+<%- include('../../includes/end.ejs') %>
