@@ -26,7 +26,7 @@
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <button class="btn" type="submit">+</button>
               <h2><%= p.quantity %></h2>
-              <input type="hidden" name="productId" value="<%= p.productId._id %>">
+              <input type="hidden" name="productId" value="<%= p.productId._id %>"><input type="hidden" name="path" value="/cart">
             </form>
             <form action="/cart-decrement-item" method="post">
               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
