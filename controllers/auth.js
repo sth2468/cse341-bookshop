@@ -235,8 +235,9 @@ exports.postReset = (req, res, next) => {
           from: 'sandybeach_21@hotmail.com',
           subject: 'Password reset',
           html: `
+            <h1>Jilyan Potter Ceramics - Password reset</h1>
             <p>You requested a password reset</p>
-            <p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
+            <p>Click this <a href="https://cse341-e-commerce.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
           `
         });
       })
