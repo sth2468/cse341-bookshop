@@ -239,7 +239,8 @@ exports.postReset = (req, res, next) => {
             <p>You requested a password reset</p>
             <p>Click this <a href="https://cse341-e-commerce.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
           `
-        });
+        }); // http://localhost:5000 <--to use email on local host
+            // the sign-up and reset emails work great on localhost, but don't work with heroku.. perhaps because the api key is in an env file?
       })
       .catch(err => {
         console.log(err);
