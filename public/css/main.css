@@ -140,7 +140,7 @@ h1 {
 }
 
 .card {
-  margin: 1.5rem 0;
+  margin: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
@@ -258,4 +258,40 @@ footer {
 
 footer h3 {
   color: turquoise;
+}
+
+.pagination {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: teal;
+  padding: 0.5rem;
+  border: 1px solid teal;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 3px;
+  margin: 0 1rem;
+}
+
+.pagination a:hover,
+.pagination a:active,
+.pagination a.active {
+  background: teal;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  /* .main-header__nav {
+    display: flex;
+  } */
+
+  /* #side-menu-toggle {
+    display: none;
+  } */
+
+  .user-message {
+    width: 30rem;
+  }
 }

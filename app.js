@@ -1,3 +1,9 @@
+// npm start (in terminal)
+// http://localhost:5000/ (in browser)
+/* From Academind - Maximillian
+ * NodeJS - The Complete Guide 
+ * (incl. Deno.js, REST APIs, GraphQL) 
+*/
 const path = require('path');
 const cors = require('cors');
 
@@ -30,6 +36,7 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/proveRoutes/admin');
 const shopRoutes = require('./routes/proveRoutes/shop');
 const authRoutes = require('./routes/proveRoutes/auth');
+const prove08Routes = require('./routes/proveRoutes/prove08');
 
 const corsOptions = {
     origin: "https://cse341-e-commerce.herokuapp.com/",
@@ -79,6 +86,7 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
+app.use(prove08Routes);
 
 app.use(errorController.get404pg);
 app.use(errorController.get500pg);
